@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 
 
-def af(v):
+def alpha_nf(v):
     """
     alpha-param function
     :param v:
@@ -23,7 +23,7 @@ def af(v):
     #return 0.01 * eq
 
 
-def bf(v):
+def beta_nf(v):
     """
     beta-param function
     :param v:
@@ -42,8 +42,8 @@ def nf(t, y=0):
     n = y
     if n is None:
         n = 0
-    a = af(v)
-    b = bf(v)
+    a = alpha_nf(v)
+    b = beta_nf(v)
     ab = (a+b)
     n_inf = a / ab
     tau = 1 / ab
@@ -52,8 +52,8 @@ def nf(t, y=0):
 
 
 if __name__ == '__main__':
-    gk_bar = 20  # conductance bar (max conductance): mS cm^-2
-    ek = -84  # equilibrium potential: mV
+    gk_bar = 36  # conductance bar (max conductance): mS cm^-2
+    ek = -77  # equilibrium potential: mV
     voltages = [26, 38, 63, 88, 109]
 
     for v in voltages:
@@ -81,4 +81,5 @@ if __name__ == '__main__':
 
         plt.plot(time, gk)
         #plt.plot(time, i)
+
     plt.show()
