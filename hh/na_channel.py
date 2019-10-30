@@ -43,7 +43,9 @@ if __name__ == '__main__':
         #plt.plot(time, gk, label='%s mv' % v)
         #plt.plot(time, ms, label='open: %s mv' % v)
         #plt.plot(time, hs, label='inactive: %s mv' % v)
-        plt.plot(time, -1*i,label='%s mv' % v)
+
+        # since out_of_cell is +; in_to_cell is -; so changed sign for chart
+        plt.plot(time, -1*i, label='%s mv' % v)
 
     plt.legend()
     plt.xlabel('miliseconds')
