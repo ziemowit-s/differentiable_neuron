@@ -1,6 +1,9 @@
 # Potassium DR channel (kdr)
 Reproduced fig. 3.5 from Sterratt, Graham et al. Principles of Computational Modeling in Neuroscience
 
+* Graham 2014 Kdr current:
+![Graham 2019 Kdr](img/simulation/graham_2014_kdr_current.png)
+
 * Simulational K conductancy and open/close state with n^4 for 26, 38, 63, 88, 109 mV
 ![Simulational K conductancy](img/simulation/kdr_sim.jpg)
 

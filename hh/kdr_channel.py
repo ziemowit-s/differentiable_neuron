@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 
+gk_bar = 0.036  # conductance bar (max conductance): S/cm^2
+ek = -77  # equilibrium potential: mV
+
 
 def alpha_nf(v):
     """
@@ -52,11 +55,10 @@ def nf(t, y=0):
 
 
 if __name__ == '__main__':
-    gk_bar = 36  # conductance bar (max conductance): mS cm^-2
-    ek = -77  # equilibrium potential: mV
-    voltages = [26, 38, 63, 88, 109]
+    voltages = [-20, 0, 20, 30, 40, 45]
 
     for v in voltages:
+        vol = v
         # for 10 ms membrane is depolarized to selected voltage v
         steps = 10  # ms
         step_size = 0.01
@@ -79,7 +81,10 @@ if __name__ == '__main__':
         gk = gk_bar * ns**4  # channel transduction
 
 
-        plt.plot(time, gk)
-        #plt.plot(time, i)
+        #plt.plot(time, gk)
+        plt.plot(time, i, label='%s mv' % vol)
 
+    plt.legend()
+    plt.xlabel('miliseconds')
+    plt.ylabel('current (S/cm^2)')
     plt.show()
