@@ -19,8 +19,8 @@ Reproduced fig. 3.5 from Sterratt, Graham et al. Principles of Computational Mod
 * Open/close Book dynamics for alpha and beta params:
 ![HH K open/close](img/book/open_close_alpha_beta.jpg)
 
-* Simulational Na conductancy with m^3 * h for -40, -30, -20, 20, 40 mV:
-![Simulational Na conductancy](img/simulation/na_sim.png)
+* HH Na current
+![HH Na current](img/simulation/hh_na_current.png)
 
 * HH Na conductancy from the book:
 ![Simulational Na conductancy](img/book/na_condictancy.jpg)

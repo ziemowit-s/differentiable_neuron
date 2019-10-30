@@ -4,6 +4,9 @@ from scipy.integrate import solve_ivp
 
 import utils
 
+gna_bar = 0.012  # conductance bar (max conductance): S/cm^2
+ena = 50  # equilibrium potential: mV
+
 
 def m(t, y=0):
     a = utils.alpha(v, param=0.1, div=10, add=40)
@@ -18,48 +21,31 @@ def h(t, y=0):
 
 
 if __name__ == '__main__':
-    gna_bar = 120  # conductance bar (max conductance): mS cm^-2
-    ena = 50  # equilibrium potential: mV
     voltages = [-40, -30, -20, 20, 40]
 
     for v in voltages:
-        v_temp = v
-        v = -70  # mV
-        # for 10 ms membrane is depolarized to selected voltage v
-        steps = 1  # ms
-        step_size = 0.01
-        t_eval = np.arange(start=0, stop=steps, step=step_size)
-
-        sol = solve_ivp(m, [0, steps], t_eval=t_eval, y0=[0])
-        ms = sol.y.reshape(sol.y.shape[1])
-
-        sol = solve_ivp(h, [0, steps], t_eval=t_eval, y0=[0])
-        hs = sol.y.reshape(sol.y.shape[1])
-        time = sol.t
-
-        # then for 15 ms membrane is polarized to -70 mV
-        v = v_temp  # mV
+        # then for 10 ms membrane is polarized to v_temp
         steps = 10  # ms
         step_size = 0.01
         t_eval = np.arange(start=0, stop=steps, step=step_size)
 
-        sol = solve_ivp(m, [0, 100], t_eval=t_eval, y0=[ms[-1]])
-        ms = np.concatenate([ms, sol.y.reshape(sol.y.shape[1])])
+        sol = solve_ivp(m, [0, 100], t_eval=t_eval, y0=[0.0])  # 0.0 - fully close
+        ms = sol.y.reshape(sol.y.shape[1])
 
-        sol = solve_ivp(h, [0, 100], t_eval=t_eval, y0=[hs[-1]])
-        hs = np.concatenate([hs, sol.y.reshape(sol.y.shape[1])])
+        sol = solve_ivp(h, [0, 100], t_eval=t_eval, y0=[1.0])  # 1.0 - fully active
+        hs = sol.y.reshape(sol.y.shape[1])
 
-        time = np.concatenate([time, sol.t+time[-1]])
+        time = sol.t
 
         i = gna_bar * ms ** 3 * hs * (v - ena)  # current
         gk = gna_bar * ms ** 3 * hs  # channel transduction
 
-        plt.plot(time, gk, label='%s mv' % v)
+        #plt.plot(time, gk, label='%s mv' % v)
         #plt.plot(time, ms, label='open: %s mv' % v)
         #plt.plot(time, hs, label='inactive: %s mv' % v)
-        #plt.plot(time, i)
+        plt.plot(time, -1*i,label='%s mv' % v)
 
     plt.legend()
     plt.xlabel('miliseconds')
-    plt.ylabel('conductance')
+    plt.ylabel('current (S/cm^2)')
     plt.show()
