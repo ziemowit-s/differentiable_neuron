@@ -59,8 +59,8 @@ if __name__ == '__main__':
 
     for v in voltages:
         vol = v
-        # for 10 ms membrane is depolarized to selected voltage v
-        steps = 10  # ms
+        # for 15 ms membrane is depolarized to selected voltage v
+        steps = 15  # ms
         step_size = 0.01
         t_eval = np.arange(start=0, stop=steps, step=step_size)
         sol = solve_ivp(nf, [0, steps], t_eval=t_eval, y0=[0])
