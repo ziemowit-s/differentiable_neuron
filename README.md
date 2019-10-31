@@ -1,7 +1,10 @@
 # Potassium DR channel (kdr)
 
-* Graham 2014 Ka conductance:
-![Graham 2014 Ka](img/simulation/graham_ka_conductance.png)
+* Graham 2014 Ka conductance for channel located on 50 um from soma:
+![Graham 2014 Ka 50um](img/simulation/graham_ka_conductance_50um.png)
+
+* Graham 2014 Ka conductance for channel located on 350 um from soma:
+![Graham 2014 Ka 350um](img/simulation/graham_ka_conductance_350um.png)
 
 * Graham 2014 Kdr conductance:
 ![Graham 2014 Kdr](img/simulation/graham_kdr_conductance.png)

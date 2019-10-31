@@ -141,7 +141,7 @@ if __name__ == '__main__':
 
     for v in voltages:
         vol = v
-        k_channel = GrahamKa(x=50)
+        k_channel = GrahamKa(x=150)
         k_channel.compute(v=v, steps=20)
         k_channel.compute(v=-70, steps=20)
         plt.plot(k_channel.get_time(), k_channel.get_conductance(), label='%s mv' % vol)
