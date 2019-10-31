@@ -4,6 +4,7 @@ import numpy as np
 
 class Channel(object):
     v = None
+    x = None
 
     def __init__(self):
         self._times = []

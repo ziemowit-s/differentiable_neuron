@@ -55,6 +55,6 @@ if __name__ == '__main__':
         plt.plot(na_channel.get_time(), -1 * na_channel.get_current(), label='%s mv' % v)
 
     plt.legend()
-    plt.xlabel('miliseconds')
+    plt.xlabel('ms')
     plt.ylabel('current (S/cm^2)')
     plt.show()

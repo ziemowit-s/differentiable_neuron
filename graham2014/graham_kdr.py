@@ -1,4 +1,3 @@
-import math
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
@@ -36,9 +35,14 @@ class GrahamKdr(Channel):
 
     @staticmethod
     def tau(v):
+        """
+        in ms
+        :param v:
+        :return:
+        """
         up = GrahamKdr.beta(v)
         down = 0.02 * GrahamKdr.q * (1 + GrahamKdr.alpha(v))
-        return np.max((up / down))
+        return np.max([(up / down), 2])
 
     @staticmethod
     def n_inf(v):
@@ -74,6 +78,6 @@ if __name__ == '__main__':
         #plt.plot(kdr.get_time(), kdr.get_current(), label='%s mv' % vol)
 
     plt.legend()
-    plt.xlabel('miliseconds')
+    plt.xlabel('ms')
     plt.ylabel('current (S/cm^2)')
     plt.show()

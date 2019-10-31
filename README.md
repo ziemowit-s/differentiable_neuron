@@ -1,8 +1,10 @@
 # Potassium DR channel (kdr)
-Reproduced fig. 3.5 from Sterratt, Graham et al. Principles of Computational Modeling in Neuroscience
+
+* Graham 2014 Ka conductance:
+![Graham 2014 Ka](img/simulation/graham_ka_conductance.png)
 
 * Graham 2014 Kdr conductance:
-![Graham 2019 Kdr](img/simulation/graham_kdr_conductance.png)
+![Graham 2014 Kdr](img/simulation/graham_kdr_conductance.png)
 
 * HH K conductance
 ![HH K](img/simulation/hh_k_conductance.png)
@@ -24,4 +26,6 @@ Reproduced fig. 3.5 from Sterratt, Graham et al. Principles of Computational Mod
 
 * HH Na conductancy from the book:
 ![Simulational Na conductancy](img/book/na_condictancy.jpg)
+
+Book photosa are from Sterratt, Graham et al. Principles of Computational Modeling in Neuroscience
 
