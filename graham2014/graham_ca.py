@@ -35,21 +35,21 @@ class GrahamCar(Channel):
         return 1 / (1 + exp)
 
     @staticmethod
-    def m(t, y=0):
+    def d_m(t, y=0):
         return (GrahamCar.m_inf - y) / GrahamCar.tau_m
 
     @staticmethod
-    def h(t, y=0):
+    def d_h(t, y=0):
         return (GrahamCar.h_inf - y) / GrahamCar.tau_h
 
     def _compute(self, v, steps, step_size, t_eval):
         GrahamCar.m_inf = self._m_inf(v)
         GrahamCar.h_inf = self._h_inf(v)
 
-        sol = solve_ivp(GrahamCar.m, [0, steps], t_eval=t_eval, y0=[self.last_m])
+        sol = solve_ivp(GrahamCar.d_m, [0, steps], t_eval=t_eval, y0=[self.last_m])
         ms = sol.y.reshape(sol.y.shape[1])
 
-        sol = solve_ivp(GrahamCar.h, [0, steps], t_eval=t_eval, y0=[self.last_h])
+        sol = solve_ivp(GrahamCar.d_h, [0, steps], t_eval=t_eval, y0=[self.last_h])
         hs = sol.y.reshape(sol.y.shape[1])
 
         time = sol.t + self.last_t

@@ -114,11 +114,11 @@ class GrahamKa(Channel):
         return 1/(1+GrahamKa.alpha_l(v, x))
 
     @staticmethod
-    def n(t, y=0):
+    def d_n(t, y=0):
         return (GrahamKa.n_inf - y) / GrahamKa.tau_n
 
     @staticmethod
-    def l(t, y=0):
+    def d_l(t, y=0):
         return (GrahamKa.l_inf - y) / GrahamKa.tau_l
 
     def _compute(self, v, steps, step_size, t_eval):
@@ -127,10 +127,10 @@ class GrahamKa(Channel):
         GrahamKa.l_inf = self._l_inf(v, self.x)
         GrahamKa.tau_l = self._tau_l(v)
 
-        sol = solve_ivp(GrahamKa.n, [0, steps], t_eval=t_eval, y0=[self.last_n])
+        sol = solve_ivp(GrahamKa.d_n, [0, steps], t_eval=t_eval, y0=[self.last_n])
         ns = sol.y.reshape(sol.y.shape[1])
 
-        sol = solve_ivp(GrahamKa.l, [0, steps], t_eval=t_eval, y0=[self.last_l])
+        sol = solve_ivp(GrahamKa.d_l, [0, steps], t_eval=t_eval, y0=[self.last_l])
         ls = sol.y.reshape(sol.y.shape[1])
 
         time = sol.t + self.last_t

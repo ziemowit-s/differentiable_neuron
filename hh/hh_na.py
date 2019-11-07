@@ -16,22 +16,22 @@ class HHna(Channel):
         self.last_t = 0
 
     @staticmethod
-    def m(t, y=0):
+    def d_m(t, y=0):
         a = utils.alpha(Channel.v, param=0.1, div=10, add=40)
         b = utils.beta(Channel.v, param=4.0, div=18, add=65)
         return a * (1 - y) - b * y
 
     @staticmethod
-    def h(t, y=0):
+    def d_h(t, y=0):
         a = utils.beta(Channel.v, param=0.07, div=20, add=65)
         b = 1 / (utils.beta(Channel.v, param=1.0, div=10, add=35) + 1)
         return a * (1 - y) - b * y
 
     def _compute(self, v, steps, step_size, t_eval):
-        sol = solve_ivp(HHna.m, [0, 100], t_eval=t_eval, y0=[self.last_m])
+        sol = solve_ivp(HHna.d_m, [0, 100], t_eval=t_eval, y0=[self.last_m])
         ms = sol.y.reshape(sol.y.shape[1])
 
-        sol = solve_ivp(HHna.h, [0, 100], t_eval=t_eval, y0=[self.last_h])
+        sol = solve_ivp(HHna.d_h, [0, 100], t_eval=t_eval, y0=[self.last_h])
         hs = sol.y.reshape(sol.y.shape[1])
 
         time = sol.t + self.last_t

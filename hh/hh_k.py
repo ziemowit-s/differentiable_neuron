@@ -16,7 +16,7 @@ class HHk(Channel):
         self.t = 0
 
     @staticmethod
-    def n(t, y=0):
+    def d_n(t, y=0):
         """
         The probability of open a gate.
         """
@@ -33,7 +33,7 @@ class HHk(Channel):
         return (n_inf-n) / tau
 
     def _compute(self, v, steps, step_size, t_eval):
-        sol = solve_ivp(HHk.n, [0, steps], t_eval=t_eval, y0=[self.last_n])
+        sol = solve_ivp(HHk.d_n, [0, steps], t_eval=t_eval, y0=[self.last_n])
         ns = sol.y.reshape(sol.y.shape[1])
 
         time = sol.t + self.t

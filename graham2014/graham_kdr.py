@@ -52,13 +52,13 @@ class GrahamKdr(Channel):
         return 1 / (1 + GrahamKdr.alpha(v))
 
     @staticmethod
-    def n(t, y=0):
+    def d_n(t, y=0):
         return (GrahamKdr.n_inf - y) / GrahamKdr.tau
 
     def _compute(self, v, steps, step_size, t_eval):
         GrahamKdr.n_inf = self._n_inf(v)
         GrahamKdr.tau = self._tau(v)
-        sol = solve_ivp(GrahamKdr.n, [0, steps], t_eval=t_eval, y0=[self.last_n])
+        sol = solve_ivp(GrahamKdr.d_n, [0, steps], t_eval=t_eval, y0=[self.last_n])
         ns = sol.y.reshape(sol.y.shape[1])
 
         time = sol.t + self.last_t
