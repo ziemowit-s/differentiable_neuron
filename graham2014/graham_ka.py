@@ -80,7 +80,7 @@ class GrahamKa(Channel):
         return GrahamKa.a0_proxim if x < 100 else GrahamKa.a0_distal
 
     @staticmethod
-    def tau_n(v, x):
+    def tau_n_func(v, x):
         """
         in ms
         :param v:
@@ -92,7 +92,7 @@ class GrahamKa(Channel):
         return np.max([(up / down), 0.1])
 
     @staticmethod
-    def tau_l(v):
+    def tau_l_func(v):
         """
         in ms
         :param v:
@@ -102,7 +102,7 @@ class GrahamKa(Channel):
         return np.max([0.26*(v+50), 2])
 
     @staticmethod
-    def n_inf(v, x):
+    def n_inf_func(v, x):
         return 1 / (1 + GrahamKa.alpha_n(v, x))
 
     @staticmethod
@@ -111,11 +111,11 @@ class GrahamKa(Channel):
 
     @staticmethod
     def n(t, y=0):
-        return (GrahamKa.n_inf(Channel.v, GrahamKa.x) - y) / GrahamKa.tau_n(Channel.v, GrahamKa.x)
+        return (GrahamKa.n_inf_func(Channel.v, GrahamKa.x) - y) / GrahamKa.tau_n_func(Channel.v, GrahamKa.x)
 
     @staticmethod
     def l(t, y=0):
-        return (GrahamKa.l_inf(Channel.v, GrahamKa.x) - y) / GrahamKa.tau_l(Channel.v)
+        return (GrahamKa.l_inf(Channel.v, GrahamKa.x) - y) / GrahamKa.tau_l_func(Channel.v)
 
     def _compute(self, v, steps, step_size, t_eval):
         GrahamKa.x = self.x
@@ -138,10 +138,11 @@ class GrahamKa(Channel):
 
 if __name__ == '__main__':
     voltages = [-20, 0, 20, 30, 40, 45]
+    x = 150  # um from soma
 
     for v in voltages:
         vol = v
-        k_channel = GrahamKa(x=150)
+        k_channel = GrahamKa(x=x)
         k_channel.compute(v=v, steps=20)
         k_channel.compute(v=-70, steps=20)
         plt.plot(k_channel.get_time(), k_channel.get_conductance(), label='%s mv' % vol)

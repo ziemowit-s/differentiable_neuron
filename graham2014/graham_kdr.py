@@ -16,6 +16,9 @@ class GrahamKdr(Channel):
     Q10 = 1
     q = Q10 ** ((T - 24) / 10)
 
+    n_inf = None
+    tau = None
+
     def __init__(self):
         super().__init__()
         self.last_n = 0
@@ -34,7 +37,7 @@ class GrahamKdr(Channel):
         return np.exp((up / down))
 
     @staticmethod
-    def tau(v):
+    def _tau(v):
         """
         in ms
         :param v:
@@ -45,14 +48,16 @@ class GrahamKdr(Channel):
         return np.max([(up / down), 2])
 
     @staticmethod
-    def n_inf(v):
+    def _n_inf(v):
         return 1 / (1 + GrahamKdr.alpha(v))
 
     @staticmethod
     def n(t, y=0):
-        return (GrahamKdr.n_inf(Channel.v) - y) / GrahamKdr.tau(Channel.v)
+        return (GrahamKdr.n_inf - y) / GrahamKdr.tau
 
     def _compute(self, v, steps, step_size, t_eval):
+        GrahamKdr.n_inf = self._n_inf(v)
+        GrahamKdr.tau = self._tau(v)
         sol = solve_ivp(GrahamKdr.n, [0, steps], t_eval=t_eval, y0=[self.last_n])
         ns = sol.y.reshape(sol.y.shape[1])
 
@@ -67,17 +72,33 @@ class GrahamKdr(Channel):
 
 
 if __name__ == '__main__':
-    voltages = [-20, 0, 20, 30, 40, 45]
+    voltages_for_plot = [-20, 0, 20, 30, 40, 45]
+    voltages = np.arange(start=-70, stop=60, step=1)
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3)
+    fig.suptitle('Graham 2014 Kdr')
 
+    n_infs = []
+    taus = []
     for v in voltages:
         vol = v
         k_channel = GrahamKdr()
         k_channel.compute(v=v, steps=20)
+        n_infs.append(k_channel.n_inf)
+        taus.append(k_channel.tau)
         k_channel.compute(v=-70, steps=20)
-        plt.plot(k_channel.get_time(), k_channel.get_conductance(), label='%s mv' % vol)
-        #plt.plot(kdr.get_time(), kdr.get_current(), label='%s mv' % vol)
+        if v in voltages_for_plot:
+            ax1.plot(k_channel.get_time(), k_channel.get_conductance(), label='%s mv' % vol)
+            #ax1.plot(k_channel.get_time(), k_channel.get_current(), label='%s mv' % vol)
+    ax1.set_title('channel conductance')
+    ax1.legend()
+    ax1.set(xlabel='ms', ylabel='current (S/cm^2)')
 
-    plt.legend()
-    plt.xlabel('ms')
-    plt.ylabel('current (S/cm^2)')
+    ax2.set_title('n_inf')
+    ax2.set(xlabel='mV')
+    ax2.plot(voltages, n_infs)
+
+    ax3.set_title('tau')
+    ax3.set(xlabel='mV')
+    ax3.plot(voltages, taus)
+
     plt.show()
