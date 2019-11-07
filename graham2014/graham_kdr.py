@@ -85,10 +85,10 @@ if __name__ == '__main__':
         k_channel.compute(v=v, steps=20)
         n_infs.append(k_channel.n_inf)
         taus.append(k_channel.tau)
-        k_channel.compute(v=-70, steps=20)
+
         if v in voltages_for_plot:
+            k_channel.compute(v=-70, steps=20)
             ax1.plot(k_channel.get_time(), k_channel.get_conductance(), label='%s mv' % vol)
-            #ax1.plot(k_channel.get_time(), k_channel.get_current(), label='%s mv' % vol)
     ax1.set_title('channel conductance')
     ax1.legend()
     ax1.set(xlabel='ms', ylabel='current (S/cm^2)')
