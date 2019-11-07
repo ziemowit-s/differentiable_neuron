@@ -35,8 +35,8 @@ class HHna(Channel):
         hs = sol.y.reshape(sol.y.shape[1])
 
         time = sol.t + self.last_t
-        current = HHna.gna_bar * ms ** 3 * hs * (v - HHna.ena)  # current
         conductance = HHna.gna_bar * ms ** 3 * hs  # channel transduction
+        current = conductance * (v - HHna.ena)  # current
 
         self.last_m = ms[-1]
         self.last_h = hs[-1]
