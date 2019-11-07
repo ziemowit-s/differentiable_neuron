@@ -147,41 +147,42 @@ class GrahamKa(Channel):
 if __name__ == '__main__':
     voltages_for_plot = [-20, 0, 20, 30, 40, 45]
     voltages = np.arange(start=-70, stop=60, step=1)
-    x = 150  # um from soma
+    xs = [50, 150]  # um from soma
 
     fig, (ax1, ax2, ax3) = plt.subplots(1, 3)
     fig.suptitle('Graham 2014 Ka')
 
-    n_infs = []
-    l_infs = []
-    taus_n = []
-    taus_l = []
-    for v in voltages:
-        vol = v
-        k_channel = GrahamKa(x=x)
-        k_channel.compute(v=v, steps=20)
-        n_infs.append(k_channel.n_inf)
-        l_infs.append(k_channel.l_inf)
-        taus_n.append(k_channel.tau_n)
-        taus_l.append(k_channel.tau_l)
-        if v in voltages_for_plot:
-            k_channel.compute(v=-70, steps=20)
-            ax1.plot(k_channel.get_time(), k_channel.get_conductance(), label='%s mv' % vol)
+    for x in xs:
+        n_infs = []
+        l_infs = []
+        taus_n = []
+        taus_l = []
+        for v in voltages:
+            vol = v
+            k_channel = GrahamKa(x=x)
+            k_channel.compute(v=v, steps=20)
+            n_infs.append(k_channel.n_inf)
+            l_infs.append(k_channel.l_inf)
+            taus_n.append(k_channel.tau_n)
+            taus_l.append(k_channel.tau_l)
+            if v in voltages_for_plot:
+                k_channel.compute(v=-70, steps=20)
+                ax1.plot(k_channel.get_time(), k_channel.get_conductance(), label='%s mv, %s um' % (vol, x))
 
-    ax1.set_title('channel conductance')
-    ax1.set(xlabel='ms', ylabel='current (S/cm^2)')
-    ax1.legend()
+        ax1.set_title('channel conductance')
+        ax1.set(xlabel='ms', ylabel='current (S/cm^2)')
+        ax1.legend()
 
-    ax2.set_title('inf')
-    ax2.set(xlabel='mV')
-    ax2.plot(voltages, n_infs, label='n_inf')
-    ax2.plot(voltages, l_infs, label='l_inf')
-    ax2.legend()
+        ax2.set_title('inf')
+        ax2.set(xlabel='mV')
+        ax2.plot(voltages, n_infs, label='n_inf %s um' % x)
+        ax2.plot(voltages, l_infs, label='l_inf %s um' % x)
+        ax2.legend()
 
-    ax3.set_title('tau')
-    ax3.set(xlabel='mV')
-    ax3.plot(voltages, taus_n, label='tau_n')
-    ax3.plot(voltages, taus_l, label='tau_l')
-    ax3.legend()
+        ax3.set_title('tau')
+        ax3.set(xlabel='mV')
+        ax3.plot(voltages, taus_n, label='tau_n %s um' % x)
+        ax3.plot(voltages, taus_l, label='tau_l %s um' % x)
+        ax3.legend()
 
     plt.show()
