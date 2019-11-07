@@ -9,6 +9,12 @@
 * Graham 2014 Kdr conductance:
 ![Graham 2014 Kdr](img/simulation/graham_kdr_conductance.png)
 
+* Graham 2014 Ka full characteristics:
+![Graham 2014 Ka characteristics](img/simulation/graham_ka_characteristics.png)
+
+* Graham 2014 Kdr full characteristics:
+![Graham 2014 Kdr characteristics](img/simulation/graham_kdr_characteristics.png)
+
 * HH K conductance
 ![HH K](img/simulation/hh_k_conductance.png)
 
