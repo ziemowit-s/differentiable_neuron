@@ -15,7 +15,7 @@ class GrahamCar(Channel):
     tau_m = 3.6  # mS
     tau_h = 20  # mS
     F = 96490  # Faraday's constant: C/mol
-    d = 0.1  # depth: um
+    depth = 0.1  # depth: um
     b = 17
 
     m_inf = None
@@ -50,7 +50,7 @@ class GrahamCar(Channel):
             current
         :return:
         """
-        return -(10000 * i) / (2 * GrahamCar.F * GrahamCar.d)
+        return -(10000 * i) / (2 * GrahamCar.F * GrahamCar.depth)
 
     @staticmethod
     def d_m(t, y=0):

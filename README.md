@@ -36,5 +36,11 @@
 * HH Na conductancy from the book:
 ![Simulational Na conductancy](img/book/na_condictancy.jpg)
 
-Book photosa are from Sterratt, Graham et al. Principles of Computational Modeling in Neuroscience
+* Ca2+ diffusion (NEURON):
+  * injection of 0.01 mM Ca2+ to the outermost shell compartment 0.0
+  * simulation for 0.02 ms
+  
+![Ca2+_diffusion](img/simulation/ca2_diffusion_with_xaxis.png)
+
+Book photosa from Sterratt, Graham et al. Principles of Computational Modeling in Neuroscience
 
