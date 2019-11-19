@@ -51,5 +51,5 @@ nrngui cadif.hoc
   
 ![Ca2+_diffusion](img/simulation/ca2_diffusion_with_xaxis.png)
 
-Book photosa from Sterratt, Graham et al. Principles of Computational Modeling in Neuroscience
+Book photos from: Sterratt, Graham et al. Principles of Computational Modeling in Neuroscience
 
