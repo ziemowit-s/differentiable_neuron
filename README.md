@@ -1,3 +1,12 @@
+# To recreate
+* Channels: run Python files without arguments
+* Ca2+ diffusion: with NEURON (version 7.5):
+```
+cd diffusion
+nrnivmodl
+nrngui cadif.hoc
+```
+
 # Potassium DR channel (kdr)
 
 * Graham 2014 Ka conductance for channel located on 50 um from soma:
