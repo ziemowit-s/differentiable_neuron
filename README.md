@@ -1,6 +1,6 @@
 # To recreate
 * Channels: run Python files without arguments
-* Ca2+ diffusion: with NEURON (version 7.5):
+* Ca2+ diffusion: with NEURON:
 ```
 cd diffusion
 nrnivmodl
