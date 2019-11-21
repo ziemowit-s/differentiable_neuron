@@ -110,7 +110,7 @@ PROCEDURE factors() {
 	FROM i=0 TO NANN-2 {
 		vol[i] = vol[i] + PI*(r-dr2/2)*2*dr2	:interior half
 		r = r - dr2
-		frat[i+1] = 2*PI*r/(2*dr2)	:exterior edge of annulus. perimeter=2*PI*r; delta_r=(2*dr2)
+		frat[i+1] = 2*PI*r/(2*dr2)	:exterior edge of annulus. perimeter=2*PI*r; delta_r=(2*dr2) -> so: area/volume
 					: divided by distance between centers
 		r = r - dr2
 		vol[i+1] = PI*(r+dr2/2)*2*dr2	:outer half of annulus
