@@ -33,7 +33,7 @@ UNITS {
 }
 
 PARAMETER {
-	DCa = 0.6			(um2/ms)
+	DCa = 0.6			(um2/ms) : diffusion coeficient
 	: to change rate of buffering without disturbing equilibrium
 	: multiply the following two by the same factor
 	k1buf	= 100			(/mM-ms)
@@ -121,7 +121,7 @@ LOCAL dsq, dsqvol	: can't define local variable in KINETIC block
 			: or use in COMPARTMENT
 
 KINETIC state {
-	COMPARTMENT i, diam*diam*vol[i] {ca CaBuffer Buffer}
+	COMPARTMENT i, diam*diam*vol[i] {ca CaBuffer Buffer} : COMPARTMENT index, volume[index] {state1, state2}
 	LONGITUDINAL_DIFFUSION i, DCa*diam*diam*vol[i] {ca}
 	~ ca[0] << (-ica*PI*diam/(2*FARADAY))
 	FROM i=0 TO NANN-2 {

@@ -5,6 +5,9 @@ project/inception_dir/
 project/.idea/
 .DS_Store
 project/.DS_Store
+/diffusion/x86_64/
+x86_64/
+*/x86_64/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
