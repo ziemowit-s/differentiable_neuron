@@ -99,18 +99,18 @@ and ca[i] for 0 < i < NANN-1 is
 midway through the thickness of each annulus.
 ENDCOMMENT
 
-LOCAL frat[NANN]
+LOCAL frat[NANN] : scales the rate constants for model geometry. A/delta_r for each shell
 
 PROCEDURE factors() {
 	LOCAL r, dr2
 	r = 1/2			:starts at edge (half diam)
 	dr2 = r/(NANN-1)/2	:half thickness of annulus
-	vol[0] = 0
+	vol[0] = 0 : vrat array in the Neuron Book
 	frat[0] = 2*r
 	FROM i=0 TO NANN-2 {
 		vol[i] = vol[i] + PI*(r-dr2/2)*2*dr2	:interior half
 		r = r - dr2
-		frat[i+1] = 2*PI*r/(2*dr2)	:exterior edge of annulus
+		frat[i+1] = 2*PI*r/(2*dr2)	:exterior edge of annulus. perimeter=2*PI*r; delta_r=(2*dr2)
 					: divided by distance between centers
 		r = r - dr2
 		vol[i+1] = PI*(r+dr2/2)*2*dr2	:outer half of annulus
@@ -123,14 +123,21 @@ LOCAL dsq, dsqvol	: can't define local variable in KINETIC block
 KINETIC state {
 	COMPARTMENT i, diam*diam*vol[i] {ca CaBuffer Buffer} : COMPARTMENT index, volume[index] {state1, state2}
 	LONGITUDINAL_DIFFUSION i, DCa*diam*diam*vol[i] {ca}
+
+	: change current into molarity.
+	: change ca2+_current -> ca2+_molarity which flux through whole outer membrane (perimeter)
+	: (-ica*circle_perimeter(obwod_kola))/(ca_valency*FARADAY_CONST)
 	~ ca[0] << (-ica*PI*diam/(2*FARADAY))
-	FROM i=0 TO NANN-2 {
+
+	FROM i=0 TO NANN-2 { : radial diffusion
 		~ ca[i] <-> ca[i+1] (DCa*frat[i+1], DCa*frat[i+1])
 	}
+
 	dsq = diam*diam
-	FROM i=0 TO NANN-1 {
+	FROM i=0 TO NANN-1 { : calcium buffering
 		dsqvol = dsq*vol[i]
 		~ ca[i] + Buffer[i] <-> CaBuffer[i] (k1buf*dsqvol, k2buf*dsqvol)
 	}
+
 	cai = ca[0]
 }
