@@ -1,15 +1,19 @@
  load_file("nrngui.hoc")
-create cable
-access cable
+create spine
+access spine
 {
 	nseg = 10
-	L = 1
-	diam = 1
-	insert cadifus
+	L = 0.5
+	diam = 0.5
+	insert cadifusrect
 }
 proc init() {
 	finitialize(v_init)
-	ca_cadifus[0](.001) = 1e-2
+	ca_cadifusrect[0](.001) = 1e-2
+
+	a_cadifusrect = 1
+	b_cadifusrect = 1
+
 	cvode.re_init()
 }
 xopen("cadif.ses")

@@ -14,7 +14,7 @@ model of bullfrog sympathetic ganglion cell.
 ENDCOMMENT
 
 NEURON {
-	SUFFIX cadifus
+	SUFFIX cadifusconc
 	USEION ca READ cai, ica WRITE cai
 	GLOBAL vol, TotalBuffer
 	RANGE cai0
@@ -43,7 +43,8 @@ PARAMETER {
 }
 
 ASSIGNED {
-	diam		(um)
+	a		(um)
+	b		(um)
 	ica		(mA/cm2)
 	cai		(mM)
 	vol[NANN]	(1)	: dimensionless
