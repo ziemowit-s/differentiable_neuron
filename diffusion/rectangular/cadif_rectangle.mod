@@ -21,7 +21,6 @@ UNITS {
 }
 
 PARAMETER {
-    diam (um)
     L (um)
 	DCa = 0.6			(um2/ms) : diffusion coeficient
 	: to change rate of buffering without disturbing equilibrium
@@ -33,6 +32,7 @@ PARAMETER {
 }
 
 ASSIGNED {
+    diam (um)
 	ica		(mA/cm2)
 	cai		(mM)
 	Kd		(/mM)
