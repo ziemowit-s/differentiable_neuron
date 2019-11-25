@@ -46,7 +46,10 @@ ASSIGNED {
 	diam		(um)
 	ica		(mA/cm2)
 	cai		(mM)
-	vol[NANN]	(1)	: gets extra um2 when multiplied by diam^2
+	vol[NANN]	(1)	: dimensionless
+	: vol[i] is volume of annulus i of a 1um diameter cylinder
+	: multiply by diam^2 to get volume per um length
+	: gets extra um2 when multiplied by diam^2
 	Kd		(/mM)
 	B0		(mM)
 }
@@ -103,14 +106,17 @@ LOCAL frat[NANN] : scales the rate constants for model geometry. A/delta_r for e
 
 PROCEDURE factors() {
 	LOCAL r, dr2
+	: compute unit values
 	r = 1/2			:starts at edge (half diam)
-	dr2 = r/(NANN-1)/2	:half thickness of annulus
-	vol[0] = 0 : vrat array in the Neuron Book
-	frat[0] = 2*r
+	dr2 = r/(NANN-1)/2	:half thickness of annulus; r/6
+	vol[0] = 0 : vrat array in the Neuron Book: volume/len of the shells for a segment with unit diameter.
+	frat[0] = 2*r : flux-rate; kinetic rate constant
+
+	: scale unit values to real
 	FROM i=0 TO NANN-2 {
 		vol[i] = vol[i] + PI*(r-dr2/2)*2*dr2	:interior half
 		r = r - dr2
-		frat[i+1] = 2*PI*r/(2*dr2)	:exterior edge of annulus. perimeter=2*PI*r; delta_r=(2*dr2) -> so: area/volume
+		frat[i+1] = 2*PI*r/(2*dr2)	:exterior edge of annulus. Circumference=2*PI*r; delta_r=(2*dr2) -> so: area/thickness
 					: divided by distance between centers
 		r = r - dr2
 		vol[i+1] = PI*(r+dr2/2)*2*dr2	:outer half of annulus
@@ -125,8 +131,8 @@ KINETIC state {
 	LONGITUDINAL_DIFFUSION i, DCa*diam*diam*vol[i] {ca}
 
 	: change current into molarity.
-	: change ca2+_current -> ca2+_molarity which flux through whole outer membrane (perimeter)
-	: (-ica*circle_perimeter(obwod_kola))/(ca_valency*FARADAY_CONST)
+	: change ca2+_current -> ca2+_molarity which flux through whole outer membrane (Circumference)
+	: (-ica*circle_Circumference(obwod_kola))/(ca_valency*FARADAY_CONST)
 	~ ca[0] << (-ica*PI*diam/(2*FARADAY))
 
 	FROM i=0 TO NANN-2 { : radial diffusion
