@@ -43,8 +43,7 @@ PARAMETER {
 }
 
 ASSIGNED {
-	a		(um)
-	b		(um)
+	diam		(um)
 	ica		(mA/cm2)
 	cai		(mM)
 	vol[NANN]	(1)	: dimensionless

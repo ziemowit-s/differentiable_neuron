@@ -11,14 +11,13 @@ proc init() {
 	finitialize(v_init)
 	ca_cadifusrect[0](.001) = 1e-2
 
-	a_cadifusrect = 1
-	b_cadifusrect = 1
+	diam_cadifusrect = diam
+	L_cadifusrect = L
 
 	cvode.re_init()
 }
 xopen("cadif.ses")
 tstop = .02
-run()
 
 objref ss
 ss = new SaveState()
