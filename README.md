@@ -45,11 +45,22 @@ nrngui cadif.hoc
 * HH Na conductancy from the book:
 ![Simulational Na conductancy](img/book/na_condictancy.jpg)
 
-* Ca2+ diffusion (NEURON):
+* Ca2+ dendritic diffusion (NEURON):
   * injection of 0.01 mM Ca2+ to the outermost shell compartment 0.0
   * simulation for 0.02 ms
   
-![Ca2+_diffusion](img/simulation/ca2_diffusion_with_xaxis.png)
+![Ca2+_dendritic_diffusion](img/simulation/ca2_diffusion_with_xaxis.png)
 
-Book photos from: Sterratt, Graham et al. Principles of Computational Modeling in Neuroscience
+* Ca2+ radial diffusion schema - spine_head->spine_neck->dendrite:
+
+![Ca2+_spine_dendritic_diffusion](img/simulation/spine_dend_radial_diffusion.jpg)
+
+* Ca2+ for only dendritic spine head radial diffusion (NEURON):
+  * injection of 0.01 mM Ca2+ to the 0.5 location on the head
+  * simulation for 0.16 ms
+  
+![Ca2+_spine_dendritic_diffusion](img/simulation/ca2_radial_head_dif.gif)
+
+Book model of dendritic shells: Nicholas T. Carnevale, Michael L. Hines, The NEURON Book, 2006
+Book photos of charts from: Sterratt, Graham et al. Principles of Computational Modeling in Neuroscience, 2011
 
