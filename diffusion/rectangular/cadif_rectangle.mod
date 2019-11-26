@@ -58,7 +58,7 @@ INITIAL {
 	if (factors_done == 0) {
 		factors_done = 1
 		da = diam/(NANN-1)
-        frat = (2*da+2*L)/da : area/thickness
+        frat = L/da : area_of_diffusion/thickness_of_the_shell
 	}
 	MUTEXUNLOCK
 

@@ -2,19 +2,20 @@
 create spine
 access spine
 {
-	nseg = 10
+	nseg = 11
 	L = 0.5
 	diam = 0.5
 	insert cadifusrect
 }
 proc init() {
 	finitialize(v_init)
-	ca_cadifusrect[0](.001) = 1e-2
+	ca_cadifusrect[0](.5) = 1e-2
     L_cadifusrect = L
 	cvode.re_init()
 }
 xopen("cadif.ses")
 tstop = .02
+run()
 
 objref ss
 ss = new SaveState()
