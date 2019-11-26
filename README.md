@@ -59,8 +59,9 @@ nrngui cadif.hoc
   * injection of 0.01 mM Ca2+ to the 0.5 location on the head
   * simulation for 0.16 ms
   
-![Ca2+_spine_dendritic_diffusion](img/simulation/ca2_radial_head_dif.gif)
+![Ca2+_spine_dendritic_diffusion](img/simulation/ca2+_radial_diffusion.png)
 
 Book model of dendritic shells: Nicholas T. Carnevale, Michael L. Hines, The NEURON Book, 2006
+
 Book photos of charts from: Sterratt, Graham et al. Principles of Computational Modeling in Neuroscience, 2011
 
