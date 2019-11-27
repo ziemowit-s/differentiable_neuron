@@ -10,7 +10,6 @@ access spine
 proc init() {
 	finitialize(v_init)
 	ca_cadifusrect[0](.5) = 1e-2
-    L_cadifusrect = L
 	cvode.re_init()
 }
 xopen("cadif.ses")

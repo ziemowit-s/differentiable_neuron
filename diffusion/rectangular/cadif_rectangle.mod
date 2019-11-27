@@ -21,7 +21,6 @@ UNITS {
 }
 
 PARAMETER {
-    L (um)
 	DCa = 0.6			(um2/ms) : diffusion coeficient
 	: to change rate of buffering without disturbing equilibrium
 	: multiply the following two by the same factor
@@ -58,7 +57,7 @@ INITIAL {
 	if (factors_done == 0) {
 		factors_done = 1
 		da = diam/(NANN-1)
-        frat = L/da : area_of_diffusion/thickness_of_the_shell
+        frat = da : area_of_diffusion/thickness_of_the_shell (area_of_diffusion->based on LONGITUDINAL_DIFFUSION)
 	}
 	MUTEXUNLOCK
 
@@ -74,17 +73,17 @@ INITIAL {
 }
 
 KINETIC state {
-	COMPARTMENT i, da*L {ca CaBuffer Buffer} : COMPARTMENT index, volume[index] {state1, state2}
-	LONGITUDINAL_DIFFUSION i, DCa*da*L {ca}
+	COMPARTMENT i, da {ca CaBuffer Buffer} : COMPARTMENT index, volume[index] {state1, state2}
+	LONGITUDINAL_DIFFUSION i, DCa*da {ca}
 
-	~ ca[0] << ((-ica*da*L)/(2*FARADAY))
+	~ ca[0] << ((-ica*da)/(2*FARADAY))
 
 	FROM i=0 TO NANN-2 { : radial diffusion
 		~ ca[i] <-> ca[i+1] (DCa*frat, DCa*frat)
 	}
 
 	FROM i=0 TO NANN-1 { : calcium buffering
-		~ ca[i] + Buffer[i] <-> CaBuffer[i] (k1buf*da*L, k2buf*da*L)
+		~ ca[i] + Buffer[i] <-> CaBuffer[i] (k1buf*da, k2buf*da)
 	}
 
 	cai = ca[0]
