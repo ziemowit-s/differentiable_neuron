@@ -1,6 +1,9 @@
+import numpy as np
 from neuron import h, gui
 import matplotlib.pyplot as plt
-h.load_file('stdrun.hoc')
+from neuron.units import mV, ms, mM, uM
+from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
+from matplotlib import cm
 
 
 class Cell:
@@ -38,21 +41,34 @@ class Cell:
 
 
 if __name__ == '__main__':
+    h.load_file('stdrun.hoc')
     cell = Cell(name=0)
-    """
-    proc init() {
-        finitialize(v_init)
-        ca_cadifusrect[0](.5) = 1e-2
-        L_cadifusrect = L
-        cvode.re_init()
-    }
-    xopen("cadif.ses")
-    tstop = .02
-    """
 
-    # inject ca2+ to the first shell of head(0.5)
-    cell.head.ca_cadifusrect[0](0.5)
+    # record
+    cas = []
+    for seg in cell.head:
+        ca = h.Vector().record(seg.cadifusrect._ref_ca[0])
+        cas.append(ca)
+    t = h.Vector().record(h._ref_t)
 
-    print(cell.dend(0.5).area())
-    h.topology()
-    h.PlotShape(False).plot(plt)
+    # init
+    h.finitialize(-70 * mV)
+    cell.head(0.5).ca_cadifusrect[0] = 0.01
+    h.cvode.re_init()
+
+    # run
+    h.continuerun(0.5 * ms)
+
+    # plot
+    Z = []
+    for ca in cas:
+        Z.append(ca.as_numpy())
+    Z = np.array(Z)
+    t = t.as_numpy()
+    X, Y = np.meshgrid(t, range(0, len(cas)))
+
+    plt.gca(projection='3d').plot_surface(X, Y, Z, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    plt.show()
+
+
+
