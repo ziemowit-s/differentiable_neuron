@@ -2,6 +2,7 @@ from neuron import h, rxd
 from matplotlib import pyplot as plt
 
 h.load_file('stdrun.hoc')
+h.CVode().active(1)
 
 gip3r = 12040
 gserca = 0.3913
@@ -26,7 +27,7 @@ cyt_er_membrane = rxd.Region(h.allsec(), geometry=rxd.DistributedBoundary(1))
 ca = rxd.Species(regions=[cyt, er], d=0.08, name='ca', charge=2, initial=1e-4, atolscale=1e-6)
 ip3 = rxd.Species(regions=cyt, d=1.41, initial=0.1)
 
-# ??
+# What: ??
 ip3r_gate_stage = rxd.State(cyt_er_membrane, initial=0.8)
 h_gate = ip3r_gate_stage[cyt_er_membrane]
 
