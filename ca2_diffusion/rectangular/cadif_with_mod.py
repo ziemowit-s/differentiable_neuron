@@ -15,6 +15,7 @@ class Cell:
         self.head.L = 1
         self.head.diam = 1
         self.head.nseg = 11
+        self.head.insert('cadifusrect')
 
     def __repr__(self):
         return "Cell[{}]".format(self._name)
