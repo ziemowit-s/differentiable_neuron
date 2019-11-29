@@ -1,10 +1,10 @@
- load_file("nrngui.hoc")
+load_file("nrngui.hoc")
 create spine
 access spine
 {
 	nseg = 11
-	L = 0.5
-	diam = 0.5
+	L = 1
+	diam = 1
 	insert cadifusrect
 }
 proc init() {

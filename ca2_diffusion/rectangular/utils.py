@@ -24,8 +24,8 @@ def get_3d_concentration(species: list, time: HocObject):
     return X,Y,Z
 
 
-def plot(species: list, time: HocObject):
-    x, y, z = get_3d_concentration(species=species, time=time)
+def plot3D(specie: list, time: HocObject):
+    x, y, z = get_3d_concentration(species=specie, time=time)
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')

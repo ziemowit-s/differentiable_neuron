@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from neuron.units import mV, ms
 
 from ca2_diffusion.rectangular.cell_rxd import CellRxD
-from ca2_diffusion.rectangular.utils import record,  plot
+from ca2_diffusion.rectangular.utils import record, plot3D
 
 if __name__ == '__main__':
     h.load_file('stdrun.hoc')
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # run
     h.continuerun(0.05 * ms)
 
-    plot(species=cas_head, time=t)
+    plot3D(specie=cas_head, time=t)
     plt.show()
 
 

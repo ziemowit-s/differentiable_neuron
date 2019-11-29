@@ -11,27 +11,10 @@ class Cell:
         self.head = h.Section(name='head', cell=self)
         self.head.L = 1
         self.head.diam = 1
-        self.head.nseg = 11
-
-        self.neck = h.Section(name='neck', cell=self)
-        self.neck.L = 0.5
-        self.neck.diam = 0.1
-        self.neck.nseg = 11
-
-        self.dend = h.Section(name='dend', cell=self)
-        self.dend.L = 101
-        self.dend.diam = 5.0
-        self.dend.nseg = 101
+        self.head.nseg = 101
 
         if mechanism:
             self.head.insert(mechanism)
-            self.neck.insert(mechanism)
-            self.dend.insert(mechanism)
-
-        self.all = [self.dend, self.neck, self.head]
-
-        self.head.connect(self.neck)
-        self.neck.connect(self.dend(0.5))
 
     def __repr__(self):
         return "Cell[{}]".format(self._name)
