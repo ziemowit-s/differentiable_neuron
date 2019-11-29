@@ -1,5 +1,6 @@
 from neuron import h
 
+
 class Cell:
     def __init__(self, name, mechanism=None):
         """
@@ -18,13 +19,14 @@ class Cell:
         self.neck.nseg = 11
 
         self.dend = h.Section(name='dend', cell=self)
-        self.dend.L = 11
-        self.dend.diam = 10.0
-        self.dend.nseg = 110
+        self.dend.L = 101
+        self.dend.diam = 5.0
+        self.dend.nseg = 101
 
         if mechanism:
             self.head.insert(mechanism)
             self.neck.insert(mechanism)
+            self.dend.insert(mechanism)
 
         self.all = [self.dend, self.neck, self.head]
 

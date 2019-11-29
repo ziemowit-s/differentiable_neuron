@@ -1,11 +1,9 @@
-from matplotlib import cm
 from neuron import h
-from neuron.units import mV, ms
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
+from neuron.units import mV, ms
 
 from ca2_diffusion.rectangular.cell_rxd import CellRxD
-from ca2_diffusion.rectangular.utils import record, get_3d_concentration
+from ca2_diffusion.rectangular.utils import record,  plot
 
 if __name__ == '__main__':
     h.load_file('stdrun.hoc')
@@ -15,7 +13,7 @@ if __name__ == '__main__':
     cell = CellRxD(name=0)
 
     # record
-    cas = record(cell.ca.nodes)
+    cas_head = record(cell.ca.nodes)
     t = h.Vector().record(h._ref_t)
 
     # init
@@ -25,18 +23,8 @@ if __name__ == '__main__':
 
     # run
     h.continuerun(0.05 * ms)
-    x, y, z = get_3d_concentration(species=cas, time=t)
 
-    # plot
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-
-    ax.set_title("Ca2+ diffusion with buffer. RxD-based.")
-    ax.set_xlabel("Time (ms)")
-    ax.set_ylabel("compartment no.")
-    ax.set_zlabel("Concentration (mM)")
-
-    ax.plot_surface(x, y, z, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    plot(species=cas_head, time=t)
     plt.show()
 
 

@@ -1,12 +1,9 @@
 from neuron import h
 import matplotlib.pyplot as plt
 from neuron.units import mV, ms
-from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
-from matplotlib import cm
 
 from ca2_diffusion.rectangular.cell import Cell
-from ca2_diffusion.rectangular.utils import record, get_3d_concentration
-
+from ca2_diffusion.rectangular.utils import record, plot
 
 if __name__ == '__main__':
     h.load_file('stdrun.hoc')
@@ -14,7 +11,9 @@ if __name__ == '__main__':
     h.cvode.active(1)
 
     # record
-    cas = record(what=cell.head, func=lambda seg: seg.cadifusrect._ref_ca[0])
+    cas_head = record(what=cell.head, func=lambda seg: seg.cadifusrect._ref_ca[0])
+    cas_neck = record(what=cell.neck, func=lambda seg: seg.cadifusrect._ref_ca[0])
+    cas_dend = record(what=cell.dend, func=lambda seg: seg.cadifusrect._ref_ca[0])
     t = h.Vector().record(h._ref_t)
 
     # init
@@ -23,17 +22,10 @@ if __name__ == '__main__':
     h.cvode.re_init()
 
     # run
-    h.continuerun(0.05 * ms)
-    x, y, z = get_3d_concentration(species=cas, time=t)
+    h.continuerun(5 * ms)
 
-    # plot
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-
-    ax.set_title("Ca2+ diffusion with buffer. MOD-based.")
-    ax.set_xlabel("Time (ms)")
-    ax.set_ylabel("compartment no.")
-    ax.set_zlabel("Concentration (mM)")
-
-    ax.plot_surface(x, y, z, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    plot(species=cas_head, time=t)
+    plot(species=cas_neck, time=t)
+    plot(species=cas_dend, time=t)
     plt.show()
+
