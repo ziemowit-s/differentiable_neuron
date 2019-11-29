@@ -61,6 +61,10 @@ nrngui cadif.hoc
   
 ![Ca2+_spine_dendritic_diffusion](img/simulation/ca2_radial_head_dif.gif)
 
+* Ca2+ diffusion comparision of MOD-based shell diffusion vs RxD diffusion:
+
+![ca2_diffusion_with_mod_and_rxd](img/simulation/ca2_diffusion_with_mod_and_rxd.png)
+
 Book model of dendritic shells: Nicholas T. Carnevale, Michael L. Hines, The NEURON Book, 2006
 
 Book photos of charts from: Sterratt, Graham et al. Principles of Computational Modeling in Neuroscience, 2011
