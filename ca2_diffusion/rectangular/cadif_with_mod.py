@@ -1,29 +1,16 @@
-import numpy as np
-from neuron import h, gui
+from neuron import h
 import matplotlib.pyplot as plt
-from neuron.units import mV, ms, mM, uM
+from neuron.units import mV, ms
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 from matplotlib import cm
 
+from ca2_diffusion.rectangular.cell import Cell
 from ca2_diffusion.rectangular.utils import record, get_3d_concentration
-
-
-class Cell:
-    def __init__(self, name):
-        self._name = name
-        self.head = h.Section(name='head', cell=self)
-        self.head.L = 1
-        self.head.diam = 1
-        self.head.nseg = 11
-        self.head.insert('cadifusrect')
-
-    def __repr__(self):
-        return "Cell[{}]".format(self._name)
 
 
 if __name__ == '__main__':
     h.load_file('stdrun.hoc')
-    cell = Cell(name=0)
+    cell = Cell(name=0, mechanism='cadifusrect')
     h.cvode.active(1)
 
     # record
