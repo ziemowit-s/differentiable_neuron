@@ -65,8 +65,8 @@ if __name__ == '__main__':
     ax = fig.add_subplot(111, projection='3d')
 
     ax.set_title("Ca2+ diffusion with buffer. MOD-based.")
-    ax.set_xlabel("compartment no.")
-    ax.set_ylabel("Time (ms)")
+    ax.set_xlabel("Time (ms)")
+    ax.set_ylabel("compartment no.")
     ax.set_zlabel("Concentration (mM)")
 
     ax.plot_surface(x, y, z, cmap=cm.coolwarm, linewidth=0, antialiased=False)
