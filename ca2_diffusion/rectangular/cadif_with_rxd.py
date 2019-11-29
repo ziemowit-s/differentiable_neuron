@@ -35,10 +35,18 @@ h.cvode.re_init()
 
 # run
 h.continuerun(0.05 * ms)
+x, y, z = get_3d_concentration(species=cas, time=t)
 
 # plot
-x, y, z = get_3d_concentration(species=cas, time=t)
-plt.gca(projection='3d').plot_surface(x, y, z, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+ax.set_title("Ca2+ diffusion with buffer. RxD-based.")
+ax.set_xlabel("compartment no.")
+ax.set_ylabel("Time (ms)")
+ax.set_zlabel("Concentration (mM)")
+
+ax.plot_surface(x, y, z, cmap=cm.coolwarm, linewidth=0, antialiased=False)
 plt.show()
 
 
