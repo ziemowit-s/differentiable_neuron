@@ -1,8 +1,8 @@
-from neuron import h
+from neuron import h, gui
 import matplotlib.pyplot as plt
 from neuron.units import mV, ms
 
-from ca2_diffusion.rectangular.cell_rxd import CellRxD
+from ca2_diffusion.rectangular.cells.cell_rxd import CellRxD
 from ca2_diffusion.rectangular.utils import record, plot3D
 
 if __name__ == '__main__':

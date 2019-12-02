@@ -11,7 +11,7 @@ class Cell:
         self.head = h.Section(name='head', cell=self)
         self.head.L = 1
         self.head.diam = 1
-        self.head.nseg = 101
+        self.head.nseg = 11
 
         if mechanism:
             self.head.insert(mechanism)

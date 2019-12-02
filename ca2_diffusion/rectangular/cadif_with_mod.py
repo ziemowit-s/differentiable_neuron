@@ -1,10 +1,10 @@
-from neuron import h
+from neuron import h, gui
 import numpy as np
 import matplotlib.pyplot as plt
 from neuron.units import mV, ms
 
-from ca2_diffusion.rectangular.cell import Cell
-from ca2_diffusion.rectangular.utils import record, plot3D, plot2D
+from ca2_diffusion.rectangular.cells.cell import Cell
+from ca2_diffusion.rectangular.utils import record, plot3D
 
 if __name__ == '__main__':
     h.load_file('stdrun.hoc')
