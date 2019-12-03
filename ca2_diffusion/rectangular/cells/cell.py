@@ -23,7 +23,8 @@ class Cell:
             sec.insert(m)
         self.secs[name] = sec
 
-    def connect(self, fr, to, loc=0.0):
+    def connect(self, fr, to, loc=1.0):
+        """default: fr(0.0) -> to(1.0)"""
         fr = self.secs[fr]
         to = self.secs[to]
         fr.connect(to(loc))

@@ -1,5 +1,6 @@
-from neuron import h, rxd, gui
-from neuron.units import mV, ms
+from neuron import h
+from neuron.units import mV
+import matplotlib.pyplot as plt
 
 from ca2_diffusion.rectangular.cells.cell_rxd_ca import CellRxDCa
 
@@ -27,6 +28,7 @@ if __name__ == '__main__':
     ps.show(0)
     h.fast_flush_list.append(ps)
     ps.exec_menu('Shape Plot')
+    h.PlotShape(False).plot(plt)
 
     # run
     #h.continuerun(5 * ms)
