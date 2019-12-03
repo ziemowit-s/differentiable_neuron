@@ -21,9 +21,7 @@ class CellRxD(Cell):
         if self._is_rxd_set:
             raise MemoryError("RxD has been called earlier, it can be called only once, after all morphology is set")
         self._is_rxd_set = True
-        for k, v in self.secs.items():
-            self.regs[k] = rxd.Region(secs=v, nrn_region='i')
-        self._add_rxd(self.regs)
+        self._add_rxd(self.secs)
 
     @abc.abstractmethod
     def _add_rxd(self, regs):

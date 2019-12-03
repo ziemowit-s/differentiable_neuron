@@ -10,24 +10,28 @@ if __name__ == '__main__':
     h.cvode.active(1)
 
     cell = CellRxDCa(name="cell")
-    cell.add_sec(name="head", diam=1, l=1, nseg=11)
-    cell.add_sec(name="neck", diam=0.5, l=0.5, nseg=11)
-    cell.connect(fr='neck', to='head')
+    cell.add_sec(name="head", diam=1, l=1, nseg=40)
+    cell.add_sec(name="neck", diam=0.5, l=0.5, nseg=40)
+    cell.add_sec(name="dend", diam=0.5, l=5, nseg=10)
+    cell.connect(fr='head', to='neck')
+    cell.connect(fr='neck', to='dend', to_loc=0.5)
     cell.add_rxd()
 
     # init
     h.finitialize(-65*mV)
-    cell.ca[cell.regs['head']].nodes[0].concentration = 0.5
+    #TODO how to check if mM concentration diffuse rapidly or there is a "wall" on dendrite
+    head_last = cell.secs['head'].nseg+cell.secs['neck'].nseg+cell.secs['dend'].nseg - 1
+    cell.ca.nodes[head_last].concentration = 0.5
     h.cvode.re_init()
 
     # plot shape
-
     ps = h.PlotShape(True)
     ps.variable('cai')
     ps.scale(0, 0.01)
     ps.show(0)
     h.fast_flush_list.append(ps)
     ps.exec_menu('Shape Plot')
+    #h.PlotShape(False).plot(plt)
 
     # run
     #h.continuerun(5 * ms)

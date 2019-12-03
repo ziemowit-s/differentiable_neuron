@@ -23,11 +23,13 @@ class Cell:
             sec.insert(m)
         self.secs[name] = sec
 
-    def connect(self, fr, to, loc=1.0):
+    def connect(self, fr, to, to_loc=1.0, fr_loc=0.0):
         """default: fr(0.0) -> to(1.0)"""
+        fr_loc = float(fr_loc)
+        to_loc = float(to_loc)
         fr = self.secs[fr]
         to = self.secs[to]
-        fr.connect(to(loc))
+        fr.connect(to(to_loc), fr_loc)
 
     def __repr__(self):
         return "Cell[{}]".format(self._name)
