@@ -1,4 +1,7 @@
 import abc
+
+from neuron import rxd
+
 from ca2_diffusion.rectangular.cells.cell import Cell
 
 
@@ -6,6 +9,7 @@ class CellRxD(Cell):
     def __init__(self, name):
         super().__init__(name)
 
+        self.regs = {}
         self._is_rxd_set = False
 
     def add_sec(self, name, diam, l, nseg=1):
@@ -17,10 +21,12 @@ class CellRxD(Cell):
         if self._is_rxd_set:
             raise MemoryError("RxD has been called earlier, it can be called only once, after all morphology is set")
         self._is_rxd_set = True
-        self._add_rxd()
+        for k, v in self.secs.items():
+            self.regs[k] = rxd.Region(secs=v, nrn_region='i')
+        self._add_rxd(self.regs)
 
     @abc.abstractmethod
-    def _add_rxd(self):
+    def _add_rxd(self, regs):
         raise NotImplementedError()
 
 
