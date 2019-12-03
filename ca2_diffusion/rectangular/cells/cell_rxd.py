@@ -1,15 +1,39 @@
-from neuron import rxd
+import abc
 from ca2_diffusion.rectangular.cells.cell import Cell
 
 
 class CellRxD(Cell):
-    def __init__(self, name):
+    def __init__(self, name, add_rxd_func=None):
         super().__init__(name)
+        self._rxd_func = add_rxd_func
+        self.regions = []
+        self.species = {}
+        self.reactions = []
 
-        self.cyt = rxd.Region(secs=self.head, nrn_region='i')
+    @abc.abstractmethod
+    def add_rxd_func(self, sec):
+        raise NotImplementedError
 
-        self.ca = rxd.Species(regions=self.cyt, initial=50e-6, name='ca', charge=2, d=0.6)
-        self.cabuf = rxd.Species(regions=self.cyt, initial=0.003, name='cabuf', charge=0)
+    def _add(self, name, diam, l, nseg=1):
+        sec = super()._add(name, diam, l, nseg)
+        if self._rxd_func:
+            region, specie, reaction = self._rxd_func(sec)
+            self._extend_rxd_lists(region, specie, reaction)
+        try:
+            region, specie, reaction = self.add_rxd_func(sec)
+            self._extend_rxd_lists(region, specie, reaction)
+        except NotImplementedError:
+            return
 
-        self.ca_cabuf = rxd.Species(regions=self.cyt, initial=0, name='ca_cabuf', charge=0)
-        self.reaction = rxd.Reaction(self.ca + self.cabuf, self.ca_cabuf, 100, 0.1)
+    def _extend_rxd_lists(self, region, specie, reaction):
+        if not isinstance(region, list):
+            region = [region]
+        if not isinstance(specie, list):
+            specie = [specie]
+        if not isinstance(reaction, list):
+            reaction = [reaction]
+        self.regions.extend(region)
+        for s in specie:
+            self.species[s.name] = s
+        self.reactions.extend(reaction)
+

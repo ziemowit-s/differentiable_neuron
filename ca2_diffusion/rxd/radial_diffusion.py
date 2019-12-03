@@ -2,44 +2,44 @@ from neuron import h, rxd, gui
 from neuron.units import mV, ms
 import matplotlib.pyplot as plt
 
-h.load_file('stdrun.hoc')
-h.cvode.atol(1e-8)
-h.cvode.active(1)
+from ca2_diffusion.rectangular.cells.cell_rxd import CellRxD
 
-head = h.Section(name='head')
-head.L = 1
-head.diam = 1
-head.nseg = 11
-neck = h.Section(name='neck')
-neck.L = 0.5
-neck.diam = 0.5
-neck.nseg = 11
-head.connect(neck)
 
-cyt_head = rxd.Region(secs=head, nrn_region='i')
-cyt_neck = rxd.Region(secs=neck, nrn_region='i')
+def add_rxd(sec):
+    region = rxd.Region(secs=sec, nrn_region='i')
 
-ca = rxd.Species(regions=[cyt_head, cyt_neck], initial=50e-6, name='ca', charge=2, d=0.6)
-cabuf = rxd.Species(regions=[cyt_head, cyt_neck], initial=0.003, name='cabuf', charge=0)
+    ca = rxd.Species(regions=region, initial=50e-6, name='ca', charge=2, d=0.6)
+    cabuf = rxd.Species(regions=region, initial=0.003, name='cabuf', charge=0)
+    ca_cabuf = rxd.Species(regions=region, initial=0, name='ca_cabuf', charge=0)
 
-ca_cabuf = rxd.Species(regions=[cyt_head, cyt_neck], initial=0, name='ca_cabuf', charge=0)
-reaction = rxd.Reaction(ca + cabuf, ca_cabuf, 100, 0.1)
+    reaction = rxd.Reaction(ca + cabuf, ca_cabuf, 100, 0.1)
 
-# init
-h.finitialize(-65 * mV)
-ca[cyt_head].nodes[10].concentration = 0.01
-h.cvode.re_init()
+    return region, [ca, ca_cabuf, cabuf], reaction
 
-# plot shape
 
-ps = h.PlotShape(True)
-ps.variable('cai')
-ps.scale(0, 0.01)
-ps.show(0)
-ps.exec_menu('Shape Plot')
-#ps.plot(plt)
+if __name__ == '__main__':
+    h.load_file('stdrun.hoc')
+    h.cvode.atol(1e-8)
+    h.cvode.active(1)
 
-# run
-h.continuerun(5 * ms)
+    cell = CellRxD(name="cell", add_rxd_func=add_rxd)
+    cell.add(name="head", diam=1, l=1, nseg=11)
+
+    # init
+    h.finitialize(-65*mV)
+    cell.species['ca'].nodes[5].concentration = 0.01
+    h.cvode.re_init()
+
+    # plot shape
+
+    ps = h.PlotShape(True)
+    ps.variable('cai')
+    ps.scale(0, 0.01)
+    ps.show(0)
+    h.fast_flush_list.append(ps)
+    ps.exec_menu('Shape Plot')
+
+    # run
+    #h.continuerun(5 * ms)
 
 

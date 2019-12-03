@@ -7,14 +7,25 @@ class Cell:
         spine_head->spine_neck->dendrite
         """
         self._name = name
+        self.secs = []
+        if isinstance(mechanism, list):
+            self.mechanisms = mechanism
+        else:
+            self.mechanisms = []
 
-        self.head = h.Section(name='head', cell=self)
-        self.head.L = 1
-        self.head.diam = 1
-        self.head.nseg = 11
+    def _add(self, name, diam, l, nseg=1):
+        sec = h.Section(name=name, cell=self)
+        sec.L = l
+        sec.diam = diam
+        sec.nseg = nseg
 
-        if mechanism:
-            self.head.insert(mechanism)
+        for m in self.mechanisms:
+            sec.insert(m)
+        return sec
+
+    def add(self, name, diam, l, nseg):
+        n = self._add(name, diam, l, nseg)
+        self.secs.append(n)
 
     def __repr__(self):
         return "Cell[{}]".format(self._name)
