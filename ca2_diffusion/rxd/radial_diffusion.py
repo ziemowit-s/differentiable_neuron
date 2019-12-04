@@ -23,7 +23,7 @@ if __name__ == '__main__':
     cell = CellRxDCa(name="cell")
     cell.add_sec(name="head", diam=1, l=1, nseg=10)
     cell.add_sec(name="neck", diam=0.5, l=0.5, nseg=10)
-    cell.add_sec(name="dend", diam=0.5, l=5, nseg=10)
+    cell.add_sec(name="dend", diam=0.5, l=5, nseg=50)
     cell.connect(fr='head', to='neck')
     cell.connect(fr='neck', to='dend', to_loc=0.5)
     cell.add_rxd()
@@ -68,15 +68,15 @@ if __name__ == '__main__':
         dend_cai2 = get_mol(cell.secs['dend'], 0.5)  # left
         dend_cai1 = get_mol(cell.secs['dend'], 0.4)  # center
         dend_cai3 = get_mol(cell.secs['dend'], 0.6)  # right
-        #print(i, "ms", 'comp_time_ms:', round(comp_time_ms*1000, 0), 'delay:', round(delay*1000, 0))
+        print('         ', round(i, 2), "ms")
 
-        print('   |###########|')
-        print('   |   ', neck_cai2, '  |')
-        print('   |----%s----|' % round(neck_cai2-neck_cai1, 1))
-        print('   |   ', neck_cai1, '  |')
-        print('========%s=========' % round(neck_cai1-dend_cai2, 1))
-        print(dend_cai1, '|', dend_cai2, '|', dend_cai3)
-        print('#####################')
-        print()
+        print('      |===========|')
+        print('      |   ', neck_cai2, '  |')
+        print('      |----%s----|' % round(neck_cai2-neck_cai1, 1))
+        print('      |   ', neck_cai1, '  |')
+        print('===========%s============' % round(neck_cai1-dend_cai2, 1))
+        print('<-', dend_cai1, '|', dend_cai2, '|', dend_cai3, '->')
+        print('==========================')
+        print('comp_time_ms:', round(comp_time_ms*1000, 0), 'delay:')
         print()
 
