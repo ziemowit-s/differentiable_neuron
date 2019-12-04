@@ -77,6 +77,6 @@ if __name__ == '__main__':
         print('===========%s============' % round(neck_cai1-dend_cai2, 1))
         print('<-', dend_cai1, '|', dend_cai2, '|', dend_cai3, '->')
         print('==========================')
-        print('comp_time_ms:', round(comp_time_ms*1000, 0), 'delay:')
+        print('comp_time_ms:', round(comp_time_ms*1000, 0))
         print()
 
