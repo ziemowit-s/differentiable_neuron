@@ -1,8 +1,15 @@
+import numpy as np
 from neuron import h, gui
 from neuron.units import mV, ms
 import matplotlib.pyplot as plt
+import time
 
 from ca2_diffusion.rectangular.cells.cell_rxd_ca import CellRxDCa
+
+
+RUNTIME = 20 * ms
+STEPSIZE = 0.05 * ms
+DELAY = 0.200 * ms  # between steps
 
 if __name__ == '__main__':
     h.load_file('stdrun.hoc')
@@ -12,7 +19,7 @@ if __name__ == '__main__':
     cell = CellRxDCa(name="cell")
     cell.add_sec(name="head", diam=1, l=1, nseg=40)
     cell.add_sec(name="neck", diam=0.5, l=0.5, nseg=40)
-    cell.add_sec(name="dend", diam=0.5, l=5, nseg=10)
+    cell.add_sec(name="dend", diam=0.5, l=5, nseg=200)
     cell.connect(fr='head', to='neck')
     cell.connect(fr='neck', to='dend', to_loc=0.5)
     cell.add_rxd()
@@ -34,6 +41,13 @@ if __name__ == '__main__':
     #h.PlotShape(False).plot(plt)
 
     # run
-    #h.continuerun(5 * ms)
-
+    current = 0
+    sleep = 3
+    print("sleep before run for: %s seconds", sleep)
+    time.sleep(sleep)
+    for i in np.arange(0, RUNTIME, STEPSIZE):
+        h.continuerun(i * ms)
+        time.sleep(DELAY)
+        ps.fastflush()
+        print(i, "ms")
 
