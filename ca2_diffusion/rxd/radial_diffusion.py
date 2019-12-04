@@ -7,9 +7,9 @@ import time
 from ca2_diffusion.rectangular.cells.cell_rxd_ca import CellRxDCa
 
 
-RUNTIME = 20 * ms
-STEPSIZE = 0.05 * ms
-DELAY = 0.200 * ms  # between steps
+RUNTIME = 5 * ms
+STEPSIZE = 0.005 * ms
+DELAY = 20 * ms  # between steps
 
 if __name__ == '__main__':
     h.load_file('stdrun.hoc')
@@ -41,13 +41,22 @@ if __name__ == '__main__':
     #h.PlotShape(False).plot(plt)
 
     # run
-    current = 0
     sleep = 3
     print("sleep before run for: %s seconds", sleep)
     time.sleep(sleep)
+    before = time.time()
+    const_delay = DELAY / 1000  # in seconds
     for i in np.arange(0, RUNTIME, STEPSIZE):
         h.continuerun(i * ms)
-        time.sleep(DELAY)
+        current = time.time()
+        comp_time_ms = current - before
+
+        delay = const_delay - comp_time_ms
+        if delay < 0:
+            delay = 0
+
+        time.sleep(delay)
+        before = time.time()
         ps.fastflush()
-        print(i, "ms")
+        print(i, "ms", 'comp_time_ms:', round(comp_time_ms*1000, 0), 'delay:', round(delay*1000, 0))
 
