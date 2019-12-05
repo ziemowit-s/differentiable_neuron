@@ -9,11 +9,12 @@ from ca2_diffusion.rectangular.cells.cell_rxd_ca import CellRxDCa
 
 RUNTIME = 5 * ms
 STEPSIZE = 0.01 * ms
-DELAY = 20 * ms  # between steps
+DELAY = 100 * ms  # between steps
 
 
 def get_mol(sec, loc):
     return round(sec(loc).cai*1000, 2)  # in uM
+
 
 if __name__ == '__main__':
     h.load_file('stdrun.hoc')
