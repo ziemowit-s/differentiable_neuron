@@ -5,12 +5,15 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from scipy.integrate import solve_ivp
 
+STOP = 8.5  # ms
+SLOPE = 1.1
+
 
 def nf(t, y):
     return y
 
 
-def plasticity(w, slope=1.3):
+def plasticity(w, slope):
     if isinstance(w, list):
         w = np.array(w)
     return (2/(1+slope**-w))-1
@@ -25,10 +28,9 @@ def ltp(v, slope, threshold=0):
 
 
 if __name__ == '__main__':
-    STOP = 5
     x = np.arange(start=-70, stop=70, step=0.1)
-    py = ltp(v=x, slope=1.3)
-    dy = ltd(v=x, slope=1.3)
+    py = ltp(v=x, slope=SLOPE)
+    dy = ltd(v=x, slope=SLOPE)
 
     z = []
     t = []
@@ -45,7 +47,7 @@ if __name__ == '__main__':
 
     fig = plt.figure()
     ax = fig.gca(projection='3d')
-    surf = ax.plot_surface(x, t, plasticity(z), cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    surf = ax.plot_surface(x, t, plasticity(z, slope=SLOPE), cmap=cm.coolwarm, linewidth=0, antialiased=False)
     ax.set_xlabel("mV")
     ax.set_ylabel("ms")
     ax.set_zlabel("plasticity")
