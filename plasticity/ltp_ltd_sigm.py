@@ -10,7 +10,7 @@ SLOPE = 1.1
 
 
 def nf(t, y):
-    return y
+    return y*0.8
 
 
 def plasticity(w, slope):
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     for i, xi in enumerate(x):
         p = py[i]
         d = dy[i]
-        y0 = (-d+2*p)/100
+        y0 = (-d+2*p)/15
         sol = solve_ivp(nf, [0, STOP], y0=[y0], t_eval=np.arange(start=0, stop=STOP, step=0.1))
         t = sol.t
         z.append(sol.y[0])

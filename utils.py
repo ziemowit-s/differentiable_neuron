@@ -6,6 +6,7 @@ def alpha(x, param=1.0, div=1.0, add=0):
         xt = x
     else:
         xt = x.copy()
+
     xt = xt+add
     exp = np.exp(-xt/div)
     return param*(xt/(1-exp+1e-15))

@@ -23,7 +23,6 @@ class HHk(Channel):
         n = y
         if n is None:
             n = 0
-        #a = utils.alpha(Channel.v, param=0.01, div=10, add=55)  # HH original params
         a = utils.alpha(Channel.v, param=0.01, div=1, add=0.01)
         b = utils.beta(Channel.v, param=0.125, div=80, add=65)
         ab = (a+b)
@@ -54,7 +53,6 @@ if __name__ == '__main__':
         k_channel = HHk()
         k_channel.compute(v=v, steps=20)
         k_channel.compute(v=-70, steps=20)
-        #plt.plot(kdr.times, kdr.currents, label='%s mv' % vol)
         plt.plot(k_channel.get_time(), k_channel.get_conductance(), label='%s mv' % vol)
 
     plt.legend()

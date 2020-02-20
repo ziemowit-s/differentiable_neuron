@@ -15,12 +15,6 @@ def nf(t, y=0):
     return alpha * (1-n) - beta*n
 
 
-def relu(x, param=1.0):
-    x_temp = x.copy()
-    x_temp[x_temp<0] = 0
-    return param*x_temp
-
-
 if __name__ == '__main__':
     x = np.arange(start=-120, stop=40, step=0.1)
 
@@ -28,7 +22,7 @@ if __name__ == '__main__':
     beta_y = utils.beta(x, param=0.125, div=80, add=65)
 
     n_y5 = []
-    for i, xi in enumerate(x):
+    for i in range(x.size):
         alpha = alpha_y[i]
         beta = beta_y[i]
         sol = solve_ivp(nf, [0, 5], y0=[0])
