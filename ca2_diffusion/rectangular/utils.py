@@ -24,7 +24,7 @@ def get_3d_concentration(species: list, time: HocObject):
     return X,Y,Z
 
 
-def plot3D(specie: list, time: HocObject):
+def plot3D_specie(specie: list, time: HocObject):
     x, y, z = get_3d_concentration(species=specie, time=time)
 
     fig = plt.figure()
