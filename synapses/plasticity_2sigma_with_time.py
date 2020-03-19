@@ -32,7 +32,7 @@ if __name__ == '__main__':
     py = ltp(v=x, slope=SLOPE)
     dy = ltd(v=x, slope=SLOPE)
 
-    z = []
+    lr = []
     t = []
     for i, xi in enumerate(x):
         p = py[i]
@@ -40,14 +40,14 @@ if __name__ == '__main__':
         y0 = (-d+2*p)/15
         sol = solve_ivp(nf, [0, STOP], y0=[y0], t_eval=np.arange(start=0, stop=STOP, step=0.1))
         t = sol.t
-        z.append(sol.y[0])
+        lr.append(sol.y[0])
 
     x, t = np.meshgrid(x, t)
-    z = np.array(z).T
+    lr = np.array(lr).T
 
     fig = plt.figure()
     ax = fig.gca(projection='3d')
-    surf = ax.plot_surface(x, t, plasticity(z, slope=SLOPE), cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    surf = ax.plot_surface(x, t, plasticity(lr, slope=SLOPE), cmap=cm.coolwarm, linewidth=0, antialiased=False)
     ax.set_xlabel("mV")
     ax.set_ylabel("ms")
     ax.set_zlabel("plasticity")
