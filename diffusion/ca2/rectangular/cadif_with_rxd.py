@@ -2,9 +2,8 @@ from neuron import h
 import matplotlib.pyplot as plt
 from neuron.units import mV, ms
 
-from ca2_diffusion.rectangular.cells.cell_rxd_ca import CellRxDCa
-from ca2_diffusion.rectangular.utils import record, plot3D_specie
-
+from diffusion.ca2.rectangular.cells.cell_rxd_ca import CellRxDCa
+from diffusion.ca2.rectangular.utils import record, plot3D_specie
 
 if __name__ == '__main__':
     h.load_file('stdrun.hoc')

@@ -1,8 +1,6 @@
 import abc
 
-from neuron import rxd
-
-from ca2_diffusion.rectangular.cells.cell import Cell
+from diffusion.ca2.rectangular.cells.cell import Cell
 
 
 class CellRxD(Cell):

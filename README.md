@@ -16,15 +16,19 @@ nrngui cadif.hoc
 ![Graham 2014 Ka 350um](images/simulation/graham_ka_conductance_350um.png)
 
 * Graham 2014 Kdr conductance:
+  * in file: channels/graham2014/graham_kdr.py
 ![Graham 2014 Kdr](images/simulation/graham_kdr_conductance.png)
 
 * Graham 2014 Ka full characteristics:
+  * in file: channels/graham2014/graham_ka.py
 ![Graham 2014 Ka characteristics](images/simulation/graham_ka_characteristics.png)
 
 * Graham 2014 Kdr full characteristics:
+  * in file: channels/graham2014/graham_kdr.py
 ![Graham 2014 Kdr characteristics](images/simulation/graham_kdr_characteristics.png)
 
 * HH K conductance
+  * in file: channels/hh/hh_k.py
 ![HH K](images/simulation/hh_k_conductance.png)
 
 * HH K open/close state from the book
@@ -34,12 +38,14 @@ nrngui cadif.hoc
 ![HH K conductancy](images/book/kdr_conductancy.jpg)
 
 * Simulational K open/close dynamics with alpha and beta params:
+  * in file: channels/hh/kdr_open_dynamics.py
 ![SimulationalK open/close](images/simulation/kdr_open_close_sim.png)
 
 * Open/close Book dynamics for alpha and beta params:
 ![HH K open/close](images/book/open_close_alpha_beta.jpg)
 
 * HH Na conductance
+  * in file: channels/hh/hh_na.py
 ![HH Na conductance](images/simulation/hh_na_conductance.png)
 
 * HH Na conductancy from the book:
@@ -48,7 +54,11 @@ nrngui cadif.hoc
 * Ca2+ dendritic diffusion (NEURON):
   * injection of 0.01 mM Ca2+ to the outermost shell compartment 0.0
   * simulation for 0.02 ms
-  
+  * to run: 
+    * use NEURON
+    * while in console - go to diffusion/ca2/concentric 
+    * type: nrnivmodl
+    * type: nrngui cadif.hoc
 ![Ca2+_dendritic_diffusion](images/simulation/ca2_diffusion_with_xaxis.png)
 
 * Ca2+ radial diffusion schema - spine_head->spine_neck->dendrite:
@@ -62,7 +72,8 @@ nrngui cadif.hoc
 ![Ca2+_spine_dendritic_diffusion](images/simulation/ca2_radial_head_dif.gif)
 
 * Ca2+ diffusion comparision of MOD-based shell diffusion vs RxD diffusion:
-
+  * in file: diffusion/ca2/rectangular/cadif_with_mod.py
+  * in file: diffusion/ca2/rectangular/cadif_with_rxd.py
 ![ca2_diffusion_with_mod_and_rxd](images/simulation/ca2_diffusion_with_mod_and_rxd.png)
 
 Book model of dendritic shells: Nicholas T. Carnevale, Michael L. Hines, The NEURON Book, 2006

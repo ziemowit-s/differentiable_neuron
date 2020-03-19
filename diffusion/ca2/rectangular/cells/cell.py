@@ -10,6 +10,8 @@ class Cell:
         self.secs = {}
         if isinstance(mechanism, list):
             self.mechanisms = mechanism
+        elif mechanism is not None:
+            self.mechanisms = [mechanism]
         else:
             self.mechanisms = []
 

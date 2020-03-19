@@ -1,11 +1,9 @@
 import numpy as np
 from neuron import h, gui
 from neuron.units import mV, ms
-import matplotlib.pyplot as plt
 import time
 
-from ca2_diffusion.rectangular.cells.cell_rxd_ca import CellRxDCa
-
+from diffusion.ca2.rectangular.cells.cell_rxd_ca import CellRxDCa
 
 RUNTIME = 5 * ms
 STEPSIZE = 0.01 * ms

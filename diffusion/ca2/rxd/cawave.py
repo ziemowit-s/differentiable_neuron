@@ -1,5 +1,4 @@
 from neuron import h, rxd
-from matplotlib import pyplot as plt
 
 h.load_file('stdrun.hoc')
 h.CVode().active(1)
